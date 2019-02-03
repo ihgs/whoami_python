@@ -9,7 +9,7 @@
       <b-collapse is-nav id="nav_collapse">
 
         <b-navbar-nav>
-          <b-nav-item href="about">Systems</b-nav-item>
+          <b-nav-item href="systems">Systems</b-nav-item>
           <b-nav-item href="#" disabled>Disabled</b-nav-item>
         </b-navbar-nav>
 

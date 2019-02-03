@@ -1,0 +1,28 @@
+
+
+GET http://127.0.0.1:5042/api/v1/auth/login
+
+
+### 
+
+GET http://127.0.0.1:5042/api/v1/userinfo
+
+###
+
+GET http://127.0.0.1:5042/api/v1/systems
+
+###
+POST http://127.0.0.1:5042/api/v1/systems
+Content-Type:application/json
+
+{
+  "name": "systemA"
+}
+
+###
+
+PUT http://127.0.0.1:5042/api/v1/user/system/93
+
+###
+
+DELETE http://127.0.0.1:5042/api/v1/user/system/93
