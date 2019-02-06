@@ -1,9 +1,32 @@
 import responder
 from whoami.neo4j.client import UserHandler, SystemHandler, Neo4jClient
 from whoami.exception import NotLogined
-
+from pathlib import Path
+import os
 
 api = responder.API()
+api.add_route(static=True)
+
+
+def _load_static(type, file):
+    staticfile = (Path(os.path.abspath("static")) / type / file).resolve()
+    if os.path.exists(staticfile):
+        with open(staticfile, "r") as f:
+            content = f.read()
+    return content
+
+
+# TODO
+@api.route("/js/{file}")
+def js(req, resp, file):
+    resp.content = None
+    resp.text = _load_static("js", file)
+
+
+@api.route("/css/{file}")
+def css(req, resp, file):
+    resp.content = None
+    resp.text = _load_static("css", file)
 
 
 def logined_user(resp):

@@ -12,9 +12,6 @@ export default {
   mounted () {
     axios
       .get('/api/v1/auth/login')
-      .then( response => {
-        console.log(response)
-       })
   }
 }
 </script>
