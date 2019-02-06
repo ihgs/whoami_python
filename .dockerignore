@@ -1,0 +1,5 @@
+front/node_modules
+front/dist
+server/.venv
+server/.vscode
+server/test.http
