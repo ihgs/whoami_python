@@ -1,5 +1,5 @@
 from py2neo import Graph, Node, Relationship, NodeMatcher, RelationshipMatcher
-
+import os
 
 class UserHandler:
     _NODE_NAME = 'User'
@@ -58,7 +58,10 @@ class SystemHandler:
 class Neo4jClient:
 
     def __init__(self):
-        self.graph = Graph("bolt://localhost:7687")
+        # pylint: disable=unused-variable
+        neo4j_host = os.getenv("NEO4J_HOST", "localhost")
+        neo4j_port = os.getenv("NEO4J_PORT", "7687")
+        self.graph = Graph(f"bolt://{neo4j_host}:{neo4j_port}")
 
     def transaction(self):
         return self

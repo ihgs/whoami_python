@@ -1,0 +1,17 @@
+version: '3'
+services:
+  webapp:
+    build: .
+    ports: 
+      - "80:80"
+    environment:
+      - NEO4J_HOST=neo4j
+    depends_on:
+      - neo4j
+  neo4j:
+    image: neo4j:3.0
+    environment:
+      - NEO4J_AUTH=none
+    volumes: 
+      - ./volume/neo4j/data:/data
+      - ./volume/neo4j/logs:/logs
