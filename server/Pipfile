@@ -10,6 +10,7 @@ pep8 = "*"
 [packages]
 responder = "*"
 py2neo = "*"
+bcrypt = "*"
 
 [requires]
 python_version = "3.7"
@@ -18,4 +19,5 @@ python_version = "3.7"
 allow_prereleases = true
 
 [scripts]
+initdb = "python bin/initdb.py" 
 serve = "python serve.py"

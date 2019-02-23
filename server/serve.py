@@ -1,8 +1,11 @@
 import responder
 from whoami.neo4j.client import UserHandler, SystemHandler, Neo4jClient
 from whoami.exception import NotLogined
+from whoami.identify.user import UserDao
+from whoami.session import Session
 from pathlib import Path
 import os
+
 
 api = responder.API()
 api.add_route(static=True)
@@ -29,24 +32,29 @@ def css(req, resp, file):
     resp.text = _load_static("css", file)
 
 
-def logined_user(resp):
+def logined_user(req):
     try:
+        print(req.cookies)
+        key = req.cookies['token']
+        value = Session().get(key)
+        print(value)
         # TODO
         # return resp.session['username']
-        return {
-            "userid": "testaa",
-            "roles": ["admin", "user"]
-        }
+        return value
     except KeyError:
         raise NotLogined
 
 
 @api.route("/api/v1/auth/login")
-def login(req, resp):
-    # TODO
-    resp.session['userid'] = "testaa"
-    print(req.cookies)
-    resp.media = {'userid': resp.session['userid']}
+async def login(req, resp):
+    data = await req.media()
+    userid = data['userid']
+    password = data['password']
+    result = UserDao.identify(userid, password)
+    key = Session().new(result)
+    resp.cookies['token'] = key
+    resp.cookies['Path'] = '/'
+    resp.media = {'userid': userid}
 
 
 @api.route("/api/v1/systems")

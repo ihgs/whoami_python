@@ -1,25 +1,33 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Admin from './views/Admin.vue'
 import System from './components/System.vue'
+import AdminRoute from './components/admin'
+import store from './store'
 
 Vue.use(Router)
 
- let router = new Router({
+let router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home,
-      meta: {isPublic: true}
+      component: Home
     },
     {
       path: '/systems',
       name: 'system',
-      component: System,
-      meta: {isPublic: true}
+      component: System
+    },
+    {
+      path: '/admin',
+      component: Admin,
+      children: [
+        AdminRoute
+      ]
     },
     {
       path: '/signin',
@@ -35,9 +43,9 @@ Vue.use(Router)
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => !record.meta.isPublic)
+  //const requiresAuth = false
   if (requiresAuth) {
-    const currentUser = false
-    if (!currentUser) {
+    if (!store.getters.logined) {
       next({
         path: 'signin',
         query: {

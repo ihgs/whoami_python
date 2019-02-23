@@ -4,13 +4,14 @@
 
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-      <b-navbar-brand href="/">Whoami</b-navbar-brand>
+      <b-navbar-brand to="/">Whoami</b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
 
         <b-navbar-nav>
-          <b-nav-item href="systems">Systems</b-nav-item>
-          <b-nav-item href="#" disabled>Disabled</b-nav-item>
+          <b-nav-item to="/systems">Systems</b-nav-item>
+          <b-nav-item to="#" disabled>Disabled</b-nav-item>
+          <b-nav-item to="/admin">Admin</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
